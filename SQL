@@ -1,0 +1,21 @@
+SELECT dr3.source_id, dr3.ra, dr3.dec, dr3.parallax, dr3.parallax_error, 
+dr3.pmra, dr3.pmra_error, dr3.pmdec, dr3.pmdec_error, dr3.ruwe, dr3.visibility_periods_used, 
+dr3.phot_g_mean_mag,  dr3.phot_bp_mean_mag,      dr3.phot_rp_mean_mag, 
+dr3.phot_g_mean_flux_over_error, dr3.phot_bp_mean_flux_over_error, dr3.phot_rp_mean_flux_over_error,
+dr3.radial_velocity,  dr3.radial_velocity_error, 
+dr3.phot_variable_flag, dr3.l, dr3.b, dr3.classprob_dsc_combmod_star, 
+dr3.teff_gspphot,  dr3.logg_gspphot, dr3.mh_gspphot, dr3.ag_gspphot, 
+dr4.mg_gspphot,    dr4.mg_gspphot_lower, dr4.mg_gspphot_upper, dr4.alphafe_gspspec, 
+dr4.radius_flame, dr4.lum_flame, dr4.mass_flame, dr4.age_flame,  dr4.flags_flame, dr4.evolstage_flame
+
+FROM gaiadr3.gaia_source AS dr3
+JOIN gaiadr3.astrophysical_parameters AS dr4 USING (source_id)
+
+WHERE dr3.parallax>6.70 AND dr3.phot_g_mean_mag<21.0 AND 
+dr3.radial_velocity IS NOT NULL AND dr3.pmra IS NOT NULL AND dr3.pmdec IS NOT NULL AND
+dr3.ruwe<1.5 AND dr3.visibility_periods_used>7.0 AND dr3.classprob_dsc_combmod_star>0.85 AND
+dr3.parallax_over_error>10.0 AND dr3.phot_g_mean_flux_over_error>50.0 AND dr3.phot_bp_mean_flux_over_error>20.0 AND dr3.phot_rp_mean_flux_over_error>20.0 AND 
+dr3.b<1.0
+
+
+
